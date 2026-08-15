@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>策略云行量化平台策略管理系统</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/style.css?v=40">
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('bnb_quant_ui_theme');
+        if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+  <div class="page">
+    <div class="wp">
+      <header class="hd">
+        <a class="brand" href="/" title="策略云行">
+          <img class="brand-logo" src="/assets/img/brand-logo.png" width="200" height="62" alt="策略云行">
+          <div class="brand-text">
+            <h1><span class="brand-mark">策略云行</span> · 量化策略管理</h1>
+            <p class="brand-sub">鄂渝信息科技 · 悠悠草 UI · STRATEGY CLOUD</p>
+          </div>
+        </a>
+        <div class="hd-right">
+          <div class="hd-meta" id="update-time">加载中…</div>
+          <div class="toolbar">
+            <button class="btn btn-ghost btn-sm" id="theme-btn" type="button" title="切换外观">外观</button>
+            <button class="btn" id="token-btn" title="访问 Token">Token</button>
+            <button class="btn btn-gradient" id="refresh-btn">刷新</button>
+          </div>
+        </div>
+      </header>
+
+      <nav class="nv" aria-label="主导航">
+        <button class="tab active" data-tab="positions">持仓</button>
+        <button class="tab" data-tab="history">历史开单</button>
+        <button class="tab" data-tab="learning">学习</button>
+        <button class="tab" data-tab="monitor">监控</button>
+        <button class="tab" data-tab="maintenance">维护</button>
+        <button class="tab" data-tab="config">配置</button>
+      </nav>
+
+      <div class="pt">
+        <div class="pt-crumb">首页<span>»</span>策略云行控制台</div>
+        <div class="pt-stats" id="pt-stats">现价 / 持仓 / 盈亏 / 胜率见下方</div>
+      </div>
+
+      <div class="live-strip" id="live-strip" aria-live="polite">
+        <div class="live-strip-track" aria-hidden="true">
+          <div class="live-strip-beam"></div>
+          <div class="live-strip-wave"></div>
+        </div>
+        <div class="live-strip-meta">
+          <span class="live-dot" id="live-dot" title="行情检测"></span>
+          <span class="live-strip-text" id="live-strip-text">正在连接行情…</span>
+          <span class="live-strip-price" id="live-strip-price">--</span>
+        </div>
+      </div>
+
+      <main class="ct">
+        <div id="watcher-banner" class="banner banner-warn hidden"></div>
+
+        <section class="bm status-hero" id="status-hero">
+          <div class="bm-h">
+            <h2>当前决策</h2>
+            <span class="bm-extra">现在</span>
+          </div>
+          <div class="bm-c status-hero-body">
+            <div class="status-hero-main">
+              <div class="status-kicker">动作</div>
+              <div class="status-action" id="status-action">--</div>
+              <div class="status-follow" id="status-follow">加载中…</div>
+            </div>
+            <div class="status-hero-side">
+              <div class="status-line"><span>意图</span><strong id="status-intent">--</strong></div>
+              <div class="status-line"><span>门控</span><strong id="status-gate">--</strong></div>
+              <div class="status-line"><span>持仓</span><strong id="status-open-inline">--</strong></div>
+              <div class="status-reason" id="status-reason">--</div>
+            </div>
+            <div class="status-hero-actions">
+              <button class="btn btn-sm" id="btn-run-analysis">只分析</button>
+              <button class="btn btn-sm btn-primary" id="btn-run-analysis-open">分析并跟单</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="kpi-row">
+          <div class="kpi">
+            <div class="kpi-label">现价</div>
+            <div class="kpi-value" id="stat-price">--</div>
+            <div class="kpi-sub" id="stat-change">--</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-label">持仓</div>
+            <div class="kpi-value" id="stat-open">--</div>
+            <div class="kpi-sub" id="stat-auto">--</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-label">盈亏</div>
+            <div class="kpi-value" id="stat-pnl">--</div>
+            <div class="kpi-sub" id="stat-pnl-sub">--</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-label">胜率</div>
+            <div class="kpi-value" id="stat-winrate">--</div>
+            <div class="kpi-sub" id="stat-trades">--</div>
+          </div>
+        </section>
+
+        <section class="bm card advice-card">
+          <div class="bm-h advice-header">
+            <h2>最新决策</h2>
+            <span id="advice-action-badge" class="badge badge-wait">--</span>
+          </div>
+          <div class="bm-c">
+            <div id="latest-advice" class="empty">加载中…</div>
+          </div>
+        </section>
+
+        <section class="bm card quick-controls">
+          <div class="bm-h section-header-row">
+            <h2>开关</h2>
+            <span class="muted small">改后请重启交易进程</span>
+          </div>
+          <div class="bm-c">
+            <div class="quick-grid">
+              <label class="quick-toggle">
+                <input type="checkbox" id="toggle-fullauto" data-section="autopilot" data-key="mode" data-bool-mode="fullauto">
+                <span>全自动</span>
+              </label>
+              <label class="quick-toggle">
+                <input type="checkbox" id="toggle-auto-follow" data-section="paper_trading" data-key="auto_follow">
+                <span>跟单</span>
+              </label>
+              <label class="quick-toggle">
+                <input type="checkbox" id="toggle-follow-ai" data-section="ai_trading" data-key="follow_ai_direction">
+                <span>跟 AI</span>
+              </label>
+              <label class="quick-toggle">
+                <input type="checkbox" id="toggle-ai-deepseek" data-section="deepseek" data-key="enabled">
+                <span>DeepSeek</span>
+              </label>
+              <label class="quick-toggle">
+                <input type="checkbox" id="toggle-ai-qianwen" data-section="qianwen" data-key="enabled">
+                <span>千问</span>
+              </label>
+              <label class="quick-toggle">
+                <input type="checkbox" id="toggle-ai-volcengine" data-section="volcengine" data-key="enabled">
+                <span>豆包</span>
+              </label>
+            </div>
+            <div id="ai-providers-hint" class="muted small" style="margin-top:10px">三家 AI：勾选即开启（需已配置 API Key）</div>
+          </div>
+        </section>
+
+        <div id="panel-positions" class="panel active">
+          <div class="bm card">
+            <div class="bm-h"><h2>当前持仓</h2></div>
+            <div class="bm-c">
+              <div id="positions-table"><div class="empty">加载中…</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="panel-history" class="panel">
+          <div class="bm card">
+            <div class="bm-h section-header-row">
+              <h2>已平仓记录</h2>
+              <span class="muted small">最近 80 笔</span>
+            </div>
+            <div class="bm-c">
+              <div id="history-table"><div class="empty">加载中…</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="panel-learning" class="panel">
+          <div class="bm card">
+            <div class="bm-h section-header-row">
+              <h2>成长概况</h2>
+              <span id="learn-maturity" class="badge badge-wait">--</span>
+            </div>
+            <div class="bm-c">
+              <div id="learn-summary" class="empty">加载中…</div>
+            </div>
+          </div>
+          <div class="bm card">
+            <div class="bm-h"><h2>能力维度</h2></div>
+            <div class="bm-c"><div id="learn-dims"><div class="empty">加载中…</div></div></div>
+          </div>
+          <div class="bm card">
+            <div class="bm-h"><h2>三家 AI / 闭环</h2></div>
+            <div class="bm-c"><div id="learn-llm"><div class="empty">加载中…</div></div></div>
+          </div>
+          <div class="bm card">
+            <div class="bm-h"><h2>策略贡献</h2></div>
+            <div class="bm-c"><div id="learn-strategies"><div class="empty">加载中…</div></div></div>
+          </div>
+          <div class="bm card">
+            <div class="bm-h"><h2>最近学习日志</h2></div>
+            <div class="bm-c"><div id="learn-logs"><div class="empty">加载中…</div></div></div>
+          </div>
+          <div class="bm card">
+            <div class="bm-h"><h2>最近决策</h2></div>
+            <div class="bm-c"><div id="learn-decisions"><div class="empty">加载中…</div></div></div>
+          </div>
+        </div>
+
+        <div id="panel-monitor" class="panel">
+          <div class="bm card">
+            <div class="bm-h"><h2>系统状态</h2></div>
+            <div class="bm-c"><div id="monitor-status"><div class="empty">加载中…</div></div></div>
+          </div>
+        </div>
+
+        <div id="panel-maintenance" class="panel">
+          <div class="bm card">
+            <div class="bm-h"><h2>操作</h2></div>
+            <div class="bm-c">
+              <div class="maint-actions">
+                <button class="btn" id="btn-maint-health">健康检查</button>
+                <button class="btn btn-primary" id="btn-maint-fix">自动修复</button>
+                <button class="btn" id="btn-maint-optimize">优化库</button>
+                <button class="btn" id="btn-maint-backup">备份</button>
+              </div>
+              <div id="maint-version" class="muted small" style="margin-top:12px"></div>
+            </div>
+          </div>
+          <div class="bm card">
+            <div class="bm-h"><h2>结果</h2></div>
+            <div class="bm-c"><div id="maint-health"><div class="empty">点「健康检查」</div></div></div>
+          </div>
+        </div>
+
+        <div id="panel-config" class="panel">
+          <div class="bm card">
+            <div class="bm-h"><h2>常用配置</h2></div>
+            <div class="bm-c">
+              <p class="muted small" style="margin-bottom:12px">含三家 AI 开关、跟单、超时等。保存后请重启 <code>启动服务器.bat</code>。</p>
+              <div id="config-form"><div class="empty">加载中…</div></div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <footer class="ft">
+        <div class="ft-links">
+          <a href="https://yycey.cn/" target="_blank" rel="noopener">悠悠草鄂渝</a>
+          <span>|</span>
+          <a href="https://999898.xyz/" target="_blank" rel="noopener">鄂渝信息科技</a>
+          <span>|</span>
+          <span>策略云行 · 量化平台策略管理系统</span>
+          <span>|</span>
+          <span>5s 行情检测 · 30s 全量刷新</span>
+        </div>
+        <div class="ft-copy">眨眼之间，乐趣无限</div>
+      </footer>
+    </div>
+  </div>
+
+  <div id="auth-modal" class="modal hidden">
+    <div class="modal-box">
+      <h3>访问 Token</h3>
+      <p class="muted" id="auth-hint">与 config.yaml 中 <code>web.api_token</code> 一致。</p>
+      <input type="password" id="token-input" placeholder="Bearer Token" autocomplete="off">
+      <div class="modal-actions">
+        <button class="btn" id="token-cancel">取消</button>
+        <button class="btn btn-primary" id="token-save">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/assets/js/app.js?v=40"></script>
+</body>
+</html>

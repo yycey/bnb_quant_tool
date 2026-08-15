@@ -1,0 +1,32 @@
+services:
+  watcher:
+    build: .
+    container_name: bnb-watcher
+    restart: unless-stopped
+    working_dir: /app
+    env_file:
+      - .env
+    environment:
+      PYTHONUNBUFFERED: "1"
+    volumes:
+      - ./data:/app/data
+      - ./config.yaml:/app/config.yaml:ro
+      - ./.env:/app/.env:ro
+    command: ["python", "paper_watcher.py"]
+
+  autopilot:
+    build: .
+    container_name: bnb-autopilot
+    restart: unless-stopped
+    working_dir: /app
+    depends_on:
+      - watcher
+    env_file:
+      - .env
+    environment:
+      PYTHONUNBUFFERED: "1"
+    volumes:
+      - ./data:/app/data
+      - ./config.yaml:/app/config.yaml:ro
+      - ./.env:/app/.env:ro
+    command: ["python", "autopilot_daemon.py", "--no-embed-watcher"]

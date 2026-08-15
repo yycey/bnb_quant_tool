@@ -1,0 +1,968 @@
+ai_guardrail:
+  block_on_conflict: true
+  enabled: true
+  extreme_vol_atr_pct: 0.05
+  high_vol_atr_pct: 0.035
+  min_mtf_agreement: 0.55
+ai_trading:
+  advisor_skip_duplicate_post_gates: true
+  confidence_hard_gate: true
+  counterfactual_gate:
+    block_reverse_rate: 0.35
+    block_wait_rate: 0.45
+    enabled: true
+    min_samples: 8
+  default_funding_abs_rate: 0.0001
+  fee_rate: 0.0004
+  follow_ai_direction: true
+  funding_direction_gate:
+    block_long_rate: 0.001
+    block_short_rate: -0.001
+    enabled: true
+  funding_period_hours: 8
+  gate_consec_loss_block: 5
+  learning_phase: false
+  learning_phase_disable_counterfactual: true
+  learning_phase_disable_wait_reuse: true
+  learning_phase_min_net_rr: 1.0
+  learning_phase_min_open_confidence: 0.55
+  learning_phase_min_trades: 30
+  learning_phase_probe_open: false
+  learning_phase_resonance_long_min: 35
+  learning_phase_resonance_short_max: -35
+  learning_phase_since: '2026-07-28'
+  learning_phase_use_relaxed: true
+  liquidity_premium_pct: 0.0005
+  long_min_confidence: 0.72
+  long_min_net_rr: 2.0
+  long_strict_gate_enabled: true
+  min_net_rr: 1.5
+  min_open_confidence: 0.65
+  net_rr_gate_enabled: true
+  open_follow_cooldown_minutes: 30
+  pattern_memory_block_wr: 0.35
+  pattern_memory_min_samples: 5
+  probe_confidence_floor: 0.5
+  probe_position_scale: 0.35
+  require_gate_pass: true
+  risk_recheck_pattern: false
+  slippage_lookback_trades: 100
+  slippage_pct: 0.002
+  stats_auto_only_default: true
+  use_relaxed_mode: false
+analysis:
+  confidence_threshold: 0.38
+  ta_playbook:
+    dca_default_weeks: 24
+    enabled: true
+  technical_indicators:
+  - RSI
+  - MACD
+  - Bollinger Bands
+  - Moving Averages
+  - ADX
+  - Stochastic
+  - OBV
+  - Support Resistance
+auto_review:
+  auto_apply: true
+  min_trades_to_review: 5
+  streak_review_cooldown_sec: 1800
+  trigger_every_n_trades: 15
+  trigger_on_streak: 3
+auto_run:
+  enabled: false
+  interval_minutes: 180
+automation:
+  description: 盯盘→三家分析→综合→门控→自动开平仓→复盘学习→记忆复用
+  profile: autonomous_trader
+autopilot:
+  embed_paper_watcher: true
+  interval_minutes: 60
+  min_trigger_interval_sec: 180
+  mode: fullauto
+  open_paper_on_fullauto: true
+  respect_analysis_mode: true
+  scanner_triggers_analysis: true
+backtest:
+  atr_sl_mult: 2.0
+  atr_tp_mult: 4.0
+  default_lookback_days: 180
+  fee_rate: 0.0004
+  initial_balance: 5000
+  slippage_pct: 0.0005
+binance:
+  api_key: YOUR_API_KEY
+  api_secret: YOUR_API_SECRET
+  testnet: true
+bitget:
+  base_url: https://api.bitget.com
+  enabled: true
+  fallback: true
+bnb_event_calendar:
+  announcement_page_size: 20
+  anticipation_hours: 48
+  burn_predictor:
+    cache_seconds: 3600
+    chase_block_days: 5
+    enabled: true
+    hype_window_days: 15
+  cache_seconds: 600
+  default_staking_days: 7
+  enabled: true
+  manual_events: []
+  phases:
+    anticipation:
+      confidence_boost: 0.08
+      gate_relaxation: 0.1
+      position_boost: 1.15
+      strategy_mode: aggressive_long
+    staking_lock:
+      gate_tightening: 0.02
+      paper_max_position_pct_scale: 0.75
+      position_boost: 0.85
+      strategy_mode: grid_or_hold
+    unlock_dump:
+      block_long: true
+      confidence_boost: -0.1
+      gate_tightening: 0.15
+      paper_max_position_pct_scale: 0.4
+      position_boost: 0.45
+      strategy_mode: defensive_short_bias
+      suggest_short: true
+    value_recovery:
+      position_boost: 1.0
+      strategy_mode: normal
+  post_dump_hours: 48
+  pre_unlock_hours: 12
+  recovery_hours: 48
+  refresh_minutes: 30
+  state_path: data/bnb_event_state.json
+  unlock_window_hours: 12
+bnb_factors:
+  alpha_interval: 1h
+  alpha_lookback_hours: 168
+  alpha_weight: 0.35
+  announcement_nlp:
+    launchpool_weight: 1.0
+    min_confidence: 0.35
+    regulatory_weight: 1.2
+  apply_only_to_bnb_pairs: true
+  cache_seconds: 600
+  chain_health:
+    cache_seconds: 900
+    enabled: true
+    security_block_threshold: 0.8
+    stable_bear_pct: -3.0
+    stable_bull_pct: 3.0
+    stable_lookback_days: 7
+    timeout: 15
+    tvl_bear_pct: -5.0
+    tvl_bull_pct: 5.0
+    tvl_lookback_days: 7
+  chain_health_weight: 0.12
+  enabled: true
+  extreme_apy_threshold: 15.0
+  gate_relaxation_max: 0.08
+  high_apy_threshold: 8.0
+  launchpool_weight: 0.35
+  mining_factor:
+    enabled: true
+    pre_unlock_hours: 12
+    pre_unlock_soft_hours: 24
+  news_credibility:
+    enabled: true
+    min_tier1_confirmations: 2
+    twitter_always_noise: true
+  nlp_weight: 0.3
+  positive_alpha_threshold: 0.003
+  volume_share:
+    attention_bear_mult: 0.7
+    attention_bull_mult: 1.35
+    baseline_bnb_btc_ratio: 0.08
+    cache_seconds: 300
+    enabled: true
+    lookback_days: 7
+    timeout: 12
+    vol_momentum_bear: 0.75
+    vol_momentum_bull: 1.25
+  volume_share_weight: 0.12
+bnb_risk_sentry:
+  bnb_btc_ratio:
+    btc_min_rise_pct: 0.005
+    interval: 1h
+    lookback_bars: 24
+    ratio_max_drop_pct: -0.008
+    weak_position_scale: 0.55
+  cache_seconds: 300
+  enabled: true
+  funding_rate:
+    block_long_on_extreme: true
+    elevated_threshold: 0.0005
+    extreme_threshold: 0.001
+  liquidity_guard:
+    depth_drop_threshold: 0.5
+    enabled: true
+    funding_spike_threshold: 0.0003
+    tighten_sl_factor: 0.75
+btc_lead:
+  divergence_pct: 0.008
+  lookback_bars: 24
+  slope_lag_ratio: 0.45
+capability_memory:
+  allow_wait_reuse_skip_llm: false
+  disable_reuse_in_learning_phase: true
+  enabled: true
+  execution_reuse:
+    enabled: true
+    lookback: 80
+    min_similarity: 0.88
+    min_wins: 2
+    size_scale: 1.0
+  extract_on_analysis: false
+  force_full_ai_on_stale: true
+  max_cards_in_prompt: 8
+  max_consecutive_reuse: 2
+  min_confidence: 0.4
+  min_similarity: 0.15
+  prefilter_ai: false
+  require_on_analysis: true
+  reuse_actions:
+  - LONG
+  - SHORT
+  reuse_known_situation: true
+  reuse_min_card_confidence: 0.45
+  reuse_min_similarity: 0.88
+  reuse_min_validations: 2
+  reuse_stale_refresh_hours: 6
+  reuse_trade_min_confidence: 0.55
+  reuse_trade_min_similarity: 0.9
+  reuse_trade_require_win: true
+  reuse_ttl_minutes: 720
+  skip_council_on_reuse: true
+  skip_llm_on_reuse: true
+  use_ai_extract: false
+  vector_backend: auto
+circuit_breaker:
+  atr_spike_stop_mult: 3.0
+  consec_ignore_reasons:
+  - ADMIT_WRONG
+  - TIMEOUT
+  - TIMEOUT_NO_TP
+  consec_loss_half: 3
+  consec_loss_stop: 5
+  cooldown_hours: 4
+  enabled: true
+  ma20_dev_stop_pct: 0.15
+  max_daily_drawdown_pct: 0.08
+  volatility_mult_threshold: 2.0
+  volatility_position_factor: 0.6
+confidence_calibration:
+  auto_refit: true
+  cache_seconds: 300
+  enabled: true
+  lookback: 500
+  min_samples: 20
+  params_path: data/confidence_platt.json
+  refit_seconds: 3600
+counterfactual:
+  monte_carlo:
+    enabled: true
+    lookback_trades: 50
+    min_pass_rate: 0.65
+    n_simulations: 100
+    news_delay_minutes: 5
+    price_jitter_pct: 0.01
+cross_modal_conflict:
+  conflict_ratio: 3.0
+  enabled: true
+  min_reverse_weight: 0.6
+  weights:
+    macro: 1.0
+    news: 1.0
+    onchain: 1.0
+deepseek:
+  api_key: YOUR_API_KEY
+  base_url: https://api.deepseek.com
+  enabled: true
+  model: deepseek-v4-pro
+  reasoning_effort: medium
+  thinking:
+    type: disabled
+dqn:
+  enabled: true
+  promote_accuracy: 0.55
+  shadow_vote_weight: 0.15
+  state_dim: 32
+  train_every_n_trades: 25
+  train_steps: 40
+factor_attribution_gate:
+  block_below_confidence: 0.62
+  enabled: false
+  min_unreliable_factors: 3
+intelligence_loop:
+  enabled: true
+  inject_council_memory: true
+  inject_experience_brief: true
+  owns_preflight: true
+  preflight_council_backfill: true
+  preflight_drain_reflections: true
+  preflight_soft_feedback: true
+  skip_post_soft_feedback: true
+kelly:
+  enabled: true
+  fraction: 0.5
+  full_size_min_confidence: 0.7
+  low_conf_probe_scale: 0.35
+  max_f: 0.2
+  max_fraction: 0.2
+  max_position_pct: 0.2
+  skip_advisor_dupes: true
+kline_archive:
+  auto_sync_on_analysis: true
+  download_source: auto
+  enabled: true
+  incremental: true
+  months: 18
+  prefer_local: false
+  sync_lookback_days: 3
+  sync_min_seconds: 60
+learning:
+  backfill_council_batch: 20
+  backfill_council_on_analysis: true
+  create_stub_record_if_missing: true
+  drain_reflections_on_analysis: true
+  learning_rate: 0.1
+  min_samples: 3
+  soft_feedback_batch: 15
+  soft_feedback_counterfactual: true
+  soft_feedback_deadband_pct: 0.008
+  soft_feedback_defer_zero_move: true
+  soft_feedback_hours: 4
+  soft_feedback_on_wait: true
+  soft_feedback_sl_pct: 0.015
+  soft_feedback_strong_pct: 0.02
+  soft_feedback_update_strategy_weights: false
+  soft_feedback_validate_cards_on_win: false
+  soft_feedback_weight: 0.15
+  soft_feedback_zero_move_max_age_hours: 12
+  update_council_memory: true
+  use_ai_extract_on_close: true
+learning_backup:
+  dir: data/learning_backups
+  enabled: true
+  interval_days: 2
+  keep_count: 15
+learning_evolution:
+  batch_reflection: true
+  batch_reflection_size: 5
+  block_tighten_when_open_starved: true
+  cap_level_max_without_feedback: 25
+  cap_level_min_feedback: 3
+  enabled: true
+  meta_consolidation: true
+  meta_consolidation_interval_days: 7
+  meta_consolidation_min_cards: 40
+  min_open_density_per_day: 0.3
+  open_density_lookback_days: 7
+  post_trade_reflection: true
+  require_positive_expectancy_to_tighten: true
+  shadow_param_ab: true
+  shadow_param_min_trades: 8
+  strategy_lab_auto_promote: true
+  strategy_lab_min_live_trades: 15
+  strategy_lab_min_live_wr: 0.45
+  strategy_lab_only_promoted: false
+  strategy_lab_require_oos: true
+  strategy_lab_second_validation: true
+  tighten_params:
+  - min_open_confidence
+  - long_min_confidence
+  - min_net_rr
+  - gate_tightening
+  - confidence_threshold
+  walk_forward_min_samples: 50
+learning_gate:
+  auto_tighten_on_loss: true
+  min_pattern_occurrences: 3
+  min_severity: 0.65
+  trades_per_session: 15
+llm:
+  analyzer_provider: consensus
+  analyzer_providers:
+  - volcengine
+  council_fallback_provider: volcengine
+  council_providers:
+  - volcengine
+  council_use_all_analyzers: false
+  mode: multi
+  provider: multi
+  request_timeout_seconds: 15
+  routing:
+    calm_atr_ratio_max: 1.25
+    calm_providers:
+    - volcengine
+    enabled: true
+    news_stress_confidence: 0.7
+    stress_providers:
+    - volcengine
+  rule_fallback:
+    atr_mult: 1.5
+    enabled: true
+    rr: 1.5
+    stop_pct: 0.015
+  rule_fallback_enabled: true
+  synthesis: true
+  synthesis_min_agree: 1
+  synthesis_min_weight_share: 0.55
+local_growth:
+  bleed_loss_win_mult: 3.0
+  compound_min_er: 0.0
+  compound_min_pf: 1.2
+  compound_min_trades: 15
+  edge_gave_back_rate: 0.25
+  enabled: true
+  master_min_er: 0.1
+  master_min_trades: 50
+  publish_scoreboard: true
+  seed_min_trades: 8
+macro:
+  cache_seconds: 900
+  correlation_lookback_days: 30
+  enabled: true
+  refresh_minutes: 60
+  symbols:
+    btc: BTC-USD
+    tech: QQQ
+    treasury_10y: ^TNX
+    treasury_2y: 2YY=F
+    usd_index: DX-Y.NYB
+    vix: ^VIX
+market_regime:
+  fng_euphoria: 78
+  fng_panic: 22
+  fusion_min_agreement: 2
+  high_vol_atr_ratio: 1.35
+  hmm:
+    em_iterations: 40
+    lookback: 120
+    min_bars: 60
+    min_confidence: 0.65
+  hmm_enabled: true
+  hmm_prefer_on_conflict: false
+  low_vol_atr_ratio: 0.75
+  multi_signal_fusion: true
+  trend_slope_threshold: 0.0015
+memory_governance:
+  anti_memory_enabled: true
+  half_life_days: 30
+  hot_cache_days: 7
+mexc:
+  base_url: https://api.mexc.com
+  enabled: true
+multi_agent:
+  auto_execute: false
+  enabled: true
+  learning:
+    conservative_threshold: -0.3
+    enabled: true
+  llm_debate_summary: true
+  quant:
+    ai_weight: 0.35
+    institutional_weight: 0.25
+    min_confidence: 0.5
+    mtf_weight: 0.25
+    technical_weight: 0.15
+  researcher:
+    bnb_factors_weight: 0.2
+    macro_weight: 0.15
+    min_confidence: 0.45
+    news_weight: 0.25
+    onchain_weight: 0.2
+    sentiment_weight: 0.2
+  risk:
+    max_combined_risk_score: 0.7
+    min_agreement_score: 0.25
+    require_both_agree: false
+    veto_on_agent_conflict: true
+  trading:
+    auto_execute: false
+    start_watcher_on_open: true
+    watcher_interval: 15
+multi_timeframe:
+  enabled: true
+  resonance_gate_enabled: true
+  resonance_long_min: 50
+  resonance_short_max: -50
+  timeframes:
+  - 15m
+  - 1h
+  - 4h
+  - 1d
+  weights:
+    15m: 0.1
+    1d: 0.4
+    1h: 0.2
+    4h: 0.3
+news:
+  blockbeats_api_key: YOUR_API_KEY
+  blockbeats_cache_seconds: 86400
+  blockbeats_lang: cn
+  blockbeats_size: 50
+  cache_dir: data/news_cache
+  incremental_fetch: true
+  odaily:
+    base_url: https://api.odaily.news
+    cache_seconds: 1800
+    enabled: true
+    lang: zh-cn
+    size: 30
+  rss_cache_seconds: 1800
+  tikhub:
+    accounts:
+    - binance
+    - BNBCHAIN
+    - _RichardTeng
+    - cz_binance
+    - VitalikButerin
+    - aantonop
+    - brian_armstrong
+    - ErikVoorhees
+    - elonmusk
+    - APompliano
+    - SatoshiLite
+    - saylor
+    - balajis
+    - unusual_whales
+    - zerohedge
+    - Nouriel
+    - SECGov
+    - CFTC
+    - federalreserve
+    - muddywatersre
+    - HindenburgRes
+    - WuBlockchain
+    - lookonchain
+    - CertiK
+    api_key: YOUR_API_KEY
+    cache_dir: data/tikhub_cache
+    cache_seconds: 86400
+    enabled: true
+    max_per_source: 20
+    max_retries: 2
+    request_interval: 0.25
+    search_queries:
+    - Binance SEC
+    - CZ Binance lawsuit
+    - Binance ban
+    - BNB delist
+    - Binance DOJ
+    search_type: Latest
+onchain:
+  bsc_chain_id: 56
+  bsc_enabled: true
+  bscscan_api_key: ''
+  cache_seconds: 900
+  enabled: true
+  etherscan_api_key: YOUR_API_KEY
+  glassnode_api_key: ''
+  refresh_minutes: 60
+  use_coinmetrics_fallback: true
+onchain_lead_lag:
+  backtest_horizons:
+  - 1
+  - 2
+  - 4
+  - 8
+  backtest_lookback_days: 30
+  decision_weight: 0.12
+  enabled: true
+  long_min: 25
+  params_db: data/factor_params.db
+  short_max: -25
+orderflow:
+  agg_limit: 200
+  cache_dir: data/orderflow_cache
+  cache_seconds: 120
+  enabled: true
+  large_trade_usd: 50000
+  timeout: 8
+paper_trading:
+  admit_wrong:
+    adverse_r: 0.35
+    enabled: true
+    min_age_minutes: 30
+    skip_if_tp1_hit: true
+  auto_follow: true
+  auto_start_watcher: true
+  db_path: data/paper_trading.db
+  max_position_age_hours: 48
+  mfe_lock:
+    enabled: true
+    fee_buffer_pct: 0.0015
+    tiers:
+    - lock_r: 0.0
+      mfe_r: 0.6
+    - lock_r: 0.3
+      mfe_r: 1.0
+    - lock_r: 0.7
+      mfe_r: 1.5
+  pin_confirm_seconds: 60
+  pin_filter_enabled: true
+  poll_interval: 15
+  reject_same_side_stack: false
+  relaxed_mode: false
+  slippage_atr_link: true
+  slippage_enabled: true
+  slippage_max_pct: 0.005
+  slippage_min_pct: 0.001
+  soft_exit:
+    enabled: true
+    hours: 6
+    max_live_r: 0.25
+    min_hours: 2
+    require_tp1_not_hit: true
+  stats_auto_only_default: true
+position_reeval:
+  admit_wrong:
+    auto_close: true
+    enabled: true
+    max_unrealized_pnl_pct: 0.35
+    mtf_flip: true
+  auto_close: false
+  block_new_on_pending_close: false
+  enabled: true
+  hint_gate: true
+  interval_minutes: 15
+  max_unrealized_pnl_pct: 1.0
+  min_age_minutes: 15
+  require_mtf_flip: false
+  snapshot_cache_seconds: 60
+price_alert:
+  enabled: true
+  poll_interval_seconds: 15
+promotion_funnel:
+  allow_live_eligible: false
+  min_backtest_pf: 1.2
+  min_backtest_trades: 20
+  min_backtest_wr: 0.52
+  min_expectancy_r: 0.0
+  min_paper_trades: 15
+  min_paper_wr: 0.45
+  require_oos: true
+  require_paper_validated: false
+qianwen:
+  api_key: YOUR_API_KEY
+  base_url: https://dashscope.aliyuncs.com/compatible-mode/v1
+  enabled: false
+  model: qwen3.7-plus
+risk_management:
+  defer_gross_rr_to_net_gate: true
+  emergency_drawdown: 0.15
+  margin_mode: true
+  max_daily_loss: 0.04
+  max_open_positions: 0
+  max_position_pct: 0.2
+  max_risk_per_trade: 0.015
+  max_weekly_loss: 0.1
+  min_risk_reward_ratio: 1.5
+scoreboard:
+  enabled: true
+sentiment:
+  cache_seconds: 1800
+  enabled: true
+  refresh_minutes: 30
+signal_scanner:
+  atr_spike_mult: 2.0
+  big_move_lookback_bars: 4
+  big_move_min_strength: 0.55
+  big_move_pct: 0.012
+  breakout_lookback: 20
+  cooldown_seconds: 300
+  enabled: true
+  min_strength: 0.65
+  min_trigger_interval: 300
+  mtf_cache_seconds: 300
+  mtf_timeframes:
+  - 15m
+  - 1h
+  - 4h
+  rsi_overbought: 70
+  rsi_oversold: 30
+  scan_interval: 20
+  trigger_fullauto: true
+  trigger_on_big_move_only: true
+  trigger_signal_types:
+  - PRICE_SHOCK
+  - ATR_SPIKE
+  - VOLUME_SPIKE
+  - BREAKOUT
+  volume_spike_mult: 2.5
+startup:
+  ai_fullauto: true
+  auto_enable_all: true
+  auto_follow: true
+  auto_review: true
+  auto_run: false
+  delay_ms: 1500
+  intelligence_loop: true
+  paper_watcher: true
+  price_alert: true
+  signal_scanner: true
+structural_strategies:
+  basis:
+    enabled: true
+  funding_carry:
+    enabled: true
+    extreme_long_rate: 0.001
+    extreme_short_rate: -0.001
+    moderate_long_rate: 0.0005
+    moderate_short_rate: -0.0005
+    vote_weight: 0.12
+trade_advisor:
+  ai_tiebreak_min_confidence: 0.52
+  allow_weak_signal: false
+  atr_sl_mult: 1.6
+  atr_sl_mult_high_vol: 2.0
+  atr_sl_mult_low_vol: 1.4
+  atr_tp1_mult: 1.6
+  atr_tp2_mult: 2.8
+  atr_tp3_mult: 4.0
+  direction_vote_threshold: 0.08
+  dl_min_confidence: 0.65
+  dl_weight: 0.25
+  inst_tiebreak_min_confidence: 0.55
+  inst_vote_skew_min: 0.42
+  min_sl_atr_mult: 1.4
+  min_sl_pct: 0.015
+  news_filter_threshold: 0.5
+  tp_split:
+    tp1: 40%
+    tp2: 35%
+    tp3: 25%
+  use_ai_stop_loss: true
+  vol_threshold_high: 0.03
+  vol_threshold_low: 0.015
+trader_council:
+  chair_llm_summary: true
+  enabled: true
+  max_workers: 12
+  memory_db: data/trader_memory.db
+  min_consensus: 0.45
+  order:
+  - momentum
+  - mean_reversion
+  - macro
+  - structure
+  - flow
+  - contrarian
+  parallel: true
+  timeout: 60
+  traders:
+  - api_key: ''
+    base_url: ''
+    enabled: true
+    id: momentum
+    model: ''
+    name: 趋势猎手
+    temperature: 0.35
+    use_llm: true
+  - api_key: ''
+    base_url: ''
+    enabled: true
+    id: mean_reversion
+    model: ''
+    name: 均值回归
+    temperature: 0.4
+    use_llm: true
+  - api_key: ''
+    base_url: ''
+    enabled: true
+    id: macro
+    model: ''
+    name: 宏观情绪
+    temperature: 0.45
+    use_llm: true
+  - api_key: ''
+    base_url: ''
+    enabled: true
+    id: structure
+    model: ''
+    name: 结构派
+    temperature: 0.35
+    use_llm: true
+  - api_key: ''
+    base_url: ''
+    enabled: true
+    id: flow
+    model: ''
+    name: 资金流
+    temperature: 0.4
+    use_llm: true
+  - api_key: ''
+    base_url: ''
+    enabled: true
+    id: contrarian
+    model: ''
+    name: 反共识
+    temperature: 0.5
+    use_llm: true
+  wait_if_split: true
+trading:
+  account_balance: 5000
+  confidence_threshold: 0.5300000000000001
+  lookback_days: 360
+  risk_per_trade: 0.015
+  symbol: BNBUSDT
+  timeframe: 1h
+trading_profile: validation
+trading_profiles:
+  explore:
+    ai_trading:
+      advisor_skip_duplicate_post_gates: true
+      learning_phase: true
+      learning_phase_probe_open: true
+      require_gate_pass: false
+    capability_memory:
+      allow_wait_reuse_skip_llm: false
+      max_consecutive_reuse: 1
+      reuse_actions:
+      - LONG
+      - SHORT
+      reuse_stale_refresh_hours: 3
+  production:
+    ai_trading:
+      advisor_skip_duplicate_post_gates: true
+      learning_phase: false
+      learning_phase_probe_open: false
+      require_gate_pass: true
+    capability_memory:
+      allow_wait_reuse_skip_llm: false
+      max_consecutive_reuse: 2
+      reuse_actions:
+      - LONG
+      - SHORT
+      reuse_stale_refresh_hours: 6
+  validation:
+    ai_guardrail:
+      block_on_conflict: false
+      enabled: false
+    ai_trading:
+      advisor_skip_duplicate_post_gates: true
+      confidence_hard_gate: false
+      counterfactual_gate:
+        enabled: false
+      funding_direction_gate:
+        enabled: false
+      gate_consec_loss_block: 0
+      learning_phase: false
+      long_min_confidence: 0.35
+      long_min_net_rr: 0.8
+      long_strict_gate_enabled: false
+      min_net_rr: 0.8
+      min_open_confidence: 0.35
+      net_rr_gate_enabled: false
+      open_follow_cooldown_minutes: 0
+      probe_confidence_floor: 0.25
+      probe_position_scale: 0.3
+      require_gate_pass: false
+    capability_memory:
+      allow_wait_reuse_skip_llm: false
+      max_consecutive_reuse: 1
+      reuse_actions:
+      - LONG
+      - SHORT
+      reuse_stale_refresh_hours: 3
+    circuit_breaker:
+      consec_loss_half: 50
+      consec_loss_stop: 99
+      cooldown_hours: 0.1
+      enabled: false
+    factor_attribution_gate:
+      enabled: false
+    learning_evolution:
+      block_tighten_when_open_starved: true
+      min_open_density_per_day: 1.0
+    paper_trading:
+      reject_same_side_stack: false
+    position_reeval:
+      admit_wrong:
+        auto_close: true
+        enabled: true
+        max_unrealized_pnl_pct: 0.35
+        mtf_flip: true
+      auto_close: false
+    risk_management:
+      max_open_positions: 0
+    validation_trading:
+      allow_vote_direction_probe: true
+      bypass_circuit_for_probe: true
+      circuit_bypass_scale: 0.2
+      enabled: true
+      probe_confidence_floor: 0.25
+      probe_open: true
+      probe_position_scale: 0.3
+      record_hypothesis: true
+      target_opens_per_day: 99.0
+      vote_direction_confidence_floor: 0.35
+training_loop:
+  auto_discover:
+    bars: 1500
+    candidates: 120
+    enabled: true
+    every_n_closed_trades: 40
+    interval: 1h
+    min_interval_hours: 48
+    symbol: BNBUSDT
+    topk: 8
+  auto_evolve_indicators:
+    enabled: true
+    generations: 3
+    interval_days: 7
+  auto_mutate_on_review: true
+  auto_promote_on_review: true
+  enabled: true
+  shadow_record_on_close: true
+validation_trading:
+  allow_vote_direction_probe: true
+  bypass_circuit_for_probe: true
+  circuit_bypass_scale: 0.2
+  density_lookback_days: 7
+  enabled: true
+  min_open_confidence: 0.5
+  probe_confidence_floor: 0.32
+  probe_open: true
+  probe_position_scale: 0.3
+  record_hypothesis: true
+  target_opens_per_day: 0.8
+  vote_direction_confidence_floor: 0.5
+volcengine:
+  api_key: YOUR_API_KEY
+  base_url: https://ark.cn-beijing.volces.com/api/v3
+  enabled: true
+  model: doubao-seed-2-1-pro-260628
+web:
+  api_token: YOUR_WEB_TOKEN
+  python_path: C:/Users/Administrator/AppData/Local/Programs/Python/Python314/python.exe
+  update:
+    allow_git_pull: false
+    enabled: true
+    git_branch: main
+win_rate_optimizer:
+  consec_loss_tighten_per: 0.02
+  enabled: true
+  max_gate_tightening: 0.12
+  paper_high_wr: 0.55
+  paper_low_wr: 0.42
+  paper_min_trades: 5
+  pattern_boost_wr: 0.65
+  pattern_penalty_wr: 0.35
+  regime_loss_min_rate: 0.65
+win_rate_strategy:
+  boost_wr: 0.58
+  consensus_bad_penalty: 0.14
+  disable_wr: 0.25
+  enabled: true
+  heavy_penalty_wr: 0.32
+  min_samples_disable: 8
+  min_samples_penalize: 5

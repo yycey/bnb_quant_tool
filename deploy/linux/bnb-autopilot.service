@@ -1,0 +1,21 @@
+[Unit]
+Description=BNB Quant Autopilot Daemon (analysis + paper open)
+After=network-online.target bnb-watcher.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=bnb
+Group=bnb
+WorkingDirectory=/opt/bnb_quant_tool
+Environment=PYTHONUNBUFFERED=1
+EnvironmentFile=-/opt/bnb_quant_tool/.env
+# --no-embed-watcher：SL/TP 由 bnb-watcher.service 负责
+ExecStart=/opt/bnb_quant_tool/.venv/bin/python /opt/bnb_quant_tool/autopilot_daemon.py --no-embed-watcher
+Restart=always
+RestartSec=15
+KillSignal=SIGTERM
+TimeoutStopSec=120
+
+[Install]
+WantedBy=multi-user.target

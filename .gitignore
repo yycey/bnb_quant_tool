@@ -1,0 +1,119 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+env/
+
+# --- Secrets / local env ---
+.env
+.env.*
+!.env.example
+config.yaml
+config.local.yaml
+**/secrets.*
+
+# --- IDE / tooling ---
+.vscode/
+.idea/
+.workbuddy/
+*.swp
+*.swo
+*~
+
+# --- Logs & temp ---
+*.log
+.temp/
+tmp/
+pytest_out.txt
+_diag_out*.txt
+_plan_utf8.txt
+
+# --- One-off diagnostic scripts (never commit) ---
+_diag_query*.py
+_investigate_*.py
+_tmp_*.py
+
+# --- Installers / binaries / archives ---
+*.exe
+*.msi
+*.zip
+*.7z
+*.rar
+
+# --- Config / DB backups at repo root ---
+*.bak
+*.bak.*
+*.backup_*
+config.yaml.bak.*
+*.db.bak_*
+paper_trading.db.backup_*
+ai_learning.db.bak_*
+_db_merge_backup/
+
+# --- Agent / local memory notes ---
+memory/
+
+# --- Runtime data (keep structure; ignore heavy/ephemeral) ---
+data/backups/
+data/learning_backups/
+data/training_loop_state.json
+data/strategy_pool_signal.json
+data/snapshots/
+data/updates/
+data/exports/
+data/klines/
+data/news_cache/
+data/macro_cache/
+data/onchain_cache/
+data/orderflow_cache/
+data/sentiment_cache/
+data/tikhub_cache/
+data/chroma_knowledge/
+data/*.db
+data/*.db-shm
+data/*.db-wal
+data/*.log
+data/watcher.heartbeat
+data/logs/
+data/locks/
+data/*.lock
+data/models/
+
+# Accidental project mirrors inside data/ (must never be versioned)
+data/src/
+data/tests/
+data/web/
+data/scripts/
+data/gui/
+data/docs/
+data/memory/
+data/*.py
+data/*.bat
+data/*.sh
+data/requirements.txt
+data/README.md
+data/ROADMAP.md
+data/config.yaml
+data/config.yaml.bak.*
+
+# --- Local workspace / Cursor ---
+.cursor/
+/assets/
+web/_ui_spec/
+web/_ui_spec.html
+web/public/.well-known/
+web/deploy.local.php
+.git.broken.bak/

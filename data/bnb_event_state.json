@@ -1,0 +1,18 @@
+{
+  "phase": "value_recovery",
+  "phase_label": "价值回归期",
+  "event_name": "Solayer (LAYER) Airdrop Continues: Fourth Binance HODLer Airdrops Announced – Earn LAYER With Retroactive BNB Simple Ear",
+  "strategy_mode": "normal",
+  "policy": {
+    "gate_relaxation": 0.0,
+    "gate_tightening": 0.0,
+    "position_boost": 1.0,
+    "block_long": false,
+    "suggest_short": false,
+    "strategy_mode": "normal",
+    "confidence_boost": 0.0,
+    "paper_max_position_pct_scale": 1.0
+  },
+  "interpretation": "价值回归期 [Solayer (LAYER) Airdrop Continues: Fourth Binance HODLer Airdrops Announced – Earn LAYER With Retroactive BNB Simple Ear] → normal；活动结束：恢复常规分析",
+  "updated_at": "2026-08-15T04:55:07+00:00"
+}

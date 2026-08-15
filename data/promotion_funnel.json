@@ -1,0 +1,124 @@
+{
+  "updated_at": "2026-08-14T23:55:36+08:00",
+  "counts": {
+    "rejected": 5
+  },
+  "strategies": [
+    {
+      "strategy_id": "auto_0017",
+      "name": "Auto Strategy #17",
+      "stage": "rejected",
+      "reasons": [
+        "回测通过 trades=93 wr=52.7% pf=1.41",
+        "OOS 未过: missing"
+      ],
+      "metrics": {
+        "total_return_pct": 1.832,
+        "annual_return_pct": 8.549,
+        "max_drawdown_pct": -2.149,
+        "sharpe_ratio": 3.026,
+        "win_rate": 0.5269,
+        "profit_factor": 1.405,
+        "total_trades": 93,
+        "avg_hold_hours": 17.11,
+        "walk_forward": {}
+      },
+      "updated_at": "2026-08-14T23:55:36+08:00",
+      "live_unlocked": false
+    },
+    {
+      "strategy_id": "auto_0085",
+      "name": "Auto Strategy #85",
+      "stage": "rejected",
+      "reasons": [
+        "回测通过 trades=40 wr=70.0% pf=3.00",
+        "OOS 未过: missing"
+      ],
+      "metrics": {
+        "total_return_pct": 3.263,
+        "annual_return_pct": 15.61,
+        "max_drawdown_pct": -0.468,
+        "sharpe_ratio": 8.203,
+        "win_rate": 0.7,
+        "profit_factor": 3.005,
+        "total_trades": 40,
+        "avg_hold_hours": 18.85,
+        "walk_forward": {}
+      },
+      "updated_at": "2026-08-14T23:55:36+08:00",
+      "live_unlocked": false
+    },
+    {
+      "strategy_id": "auto_0089",
+      "name": "Auto Strategy #89",
+      "stage": "rejected",
+      "reasons": [
+        "回测未达标 trades=39/20 wr=51.3%/52% pf=1.44/1.2"
+      ],
+      "metrics": {
+        "total_return_pct": 0.893,
+        "annual_return_pct": 4.099,
+        "max_drawdown_pct": -1.295,
+        "sharpe_ratio": 2.192,
+        "win_rate": 0.5128,
+        "profit_factor": 1.435,
+        "total_trades": 39,
+        "avg_hold_hours": 20.41
+      },
+      "updated_at": "2026-08-14T23:55:36+08:00",
+      "live_unlocked": false
+    },
+    {
+      "strategy_id": "auto_0110",
+      "name": "Auto Strategy #110",
+      "stage": "rejected",
+      "reasons": [
+        "回测通过 trades=48 wr=56.2% pf=1.75",
+        "OOS 未过: missing"
+      ],
+      "metrics": {
+        "total_return_pct": 1.869,
+        "annual_return_pct": 8.724,
+        "max_drawdown_pct": -1.275,
+        "sharpe_ratio": 4.227,
+        "win_rate": 0.5625,
+        "profit_factor": 1.753,
+        "total_trades": 48,
+        "avg_hold_hours": 17.71,
+        "walk_forward": {}
+      },
+      "updated_at": "2026-08-14T23:55:36+08:00",
+      "live_unlocked": false
+    },
+    {
+      "strategy_id": "auto_0135",
+      "name": "Auto Strategy #135",
+      "stage": "rejected",
+      "reasons": [
+        "回测通过 trades=34 wr=64.7% pf=2.27",
+        "OOS 未过: missing"
+      ],
+      "metrics": {
+        "total_return_pct": 2.124,
+        "annual_return_pct": 9.963,
+        "max_drawdown_pct": -0.957,
+        "sharpe_ratio": 5.522,
+        "win_rate": 0.6471,
+        "profit_factor": 2.272,
+        "total_trades": 34,
+        "avg_hold_hours": 22.38,
+        "walk_forward": {}
+      },
+      "updated_at": "2026-08-14T23:55:36+08:00",
+      "live_unlocked": false
+    }
+  ],
+  "pipeline": [
+    "discovered",
+    "backtest_pass",
+    "oos_pass",
+    "paper_eligible",
+    "paper_validated",
+    "live_eligible"
+  ]
+}

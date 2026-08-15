@@ -1,0 +1,21 @@
+[Unit]
+Description=BNB Quant Paper Watcher (SL/TP/timeout)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=bnb
+Group=bnb
+WorkingDirectory=/opt/bnb_quant_tool
+Environment=PYTHONUNBUFFERED=1
+EnvironmentFile=-/opt/bnb_quant_tool/.env
+ExecStart=/opt/bnb_quant_tool/.venv/bin/python /opt/bnb_quant_tool/paper_watcher.py
+Restart=always
+RestartSec=10
+KillSignal=SIGTERM
+TimeoutStopSec=60
+# 单实例锁在 data/locks/paper_watcher.lock
+
+[Install]
+WantedBy=multi-user.target

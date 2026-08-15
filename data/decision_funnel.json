@@ -1,0 +1,24 @@
+{
+  "analysis_triggered": 48,
+  "gate_passed": 30,
+  "opened": 19,
+  "by_source": {
+    "scanner": {
+      "analysis_triggered": 12,
+      "gate_passed": 0,
+      "opened": 0
+    },
+    "gui_analysis": {
+      "analysis_triggered": 2,
+      "gate_passed": 0,
+      "opened": 0
+    },
+    "headless": {
+      "analysis_triggered": 34,
+      "gate_passed": 30,
+      "opened": 19
+    }
+  },
+  "updated_at": "2026-08-15T04:55:30.537359+00:00",
+  "last_symbol": "BNBUSDT"
+}

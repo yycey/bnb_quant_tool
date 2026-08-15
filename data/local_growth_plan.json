@@ -1,0 +1,37 @@
+{
+  "stage": "EDGE",
+  "next_lesson": "把正期望做厚：提高净 RR 与开仓质量，胜率只作参考",
+  "why": "E[R]=+0.490 PF=0.93 未同时达标（目标 PF≥1.2）",
+  "focus": "expectancy",
+  "actions": [
+    "拒开净 RR 不足的单",
+    "订单流/机构信念冲突时优先 WAIT",
+    "用本地反事实区分 alpha vs beta，不更新运气单权重"
+  ],
+  "metrics": {
+    "total_trades": 574,
+    "expectancy_r": 0.4899,
+    "win_rate": 0.5436,
+    "profit_factor": 0.934,
+    "avg_win_r": 1.8273,
+    "avg_loss_r": -1.1028,
+    "loss_win_r_ratio": 0.604,
+    "gave_back_count": 97,
+    "gave_back_rate": 0.169,
+    "capability_level": 86,
+    "learning_maturity": "EXPERT",
+    "knowledge_cards": 962,
+    "funnel_opened": 6,
+    "funnel_triggered": 35
+  },
+  "local_strength": {
+    "score": 58,
+    "kline_archive_ready": false,
+    "knowledge_cards": 962,
+    "feedback_count": 1495,
+    "dqn_train_count": 0,
+    "dqn_shadow_accuracy": 0.3793,
+    "verdict": "本地在长"
+  },
+  "updated_at": "2026-08-14T23:55:18+08:00"
+}

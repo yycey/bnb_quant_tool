@@ -1,0 +1,329 @@
+/**
+ * 悠悠草 YouYouCao — Design Tokens
+ * Source: brand logo (rainbow Songti on #000)
+ * Theme: dark-first · nature-neon · elegant thin serif brand
+ *
+ * Accessibility:
+ * - Body / tertiary text must meet WCAG AA (≥4.5:1) on surface.
+ * - Never place body/caption text on pure gradients or Hero fog.
+ *
+ * Brand moments (rainbow allowed ONLY here):
+ * 1. Logo / .brand-mark
+ * 2. Hero first-screen brand title (.brand-mark--lg)
+ * 3. Paid conversion primary CTA — Gradient variant (esp. hover)
+ * 4. Annual-report / brand divider (.gradient-rule)
+ * All other icons, tags, card borders → solid Primary or Accent only.
+ */
+
+:root {
+  /* ========== Brand Spectrum (from logo L→R) ========== */
+  --brand-magenta: #ff2d8a;
+  --brand-orchid: #c77dff;
+  --brand-cyan: #2ee6ff;
+  --brand-mint: #5dffc3;
+  --brand-lime: #b8f04a;
+  --brand-gold: #ffc53d;
+
+  /* Brand gradient — brand moments only */
+  --brand-gradient: linear-gradient(
+    90deg,
+    var(--brand-magenta) 0%,
+    var(--brand-orchid) 20%,
+    var(--brand-cyan) 40%,
+    var(--brand-mint) 60%,
+    var(--brand-lime) 80%,
+    var(--brand-gold) 100%
+  );
+
+  --brand-gradient-soft: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--brand-magenta) 55%, transparent) 0%,
+    color-mix(in srgb, var(--brand-cyan) 45%, transparent) 45%,
+    color-mix(in srgb, var(--brand-gold) 50%, transparent) 100%
+  );
+
+  /* ========== Primary / Highlight ========== */
+  --color-primary: #3de8c8;
+  --color-primary-hover: #5dffc3;
+  --color-primary-pressed: #22c9ab;
+  --color-primary-muted: color-mix(in srgb, var(--color-primary) 16%, transparent);
+  --color-primary-border: color-mix(in srgb, var(--color-primary) 40%, transparent);
+
+  --color-accent: #ff2d8a;
+  --color-accent-hover: #ff5aa3;
+  --color-accent-muted: color-mix(in srgb, var(--color-accent) 14%, transparent);
+
+  /* Warm = featured / recommend / ambient — NOT warning */
+  --color-warm: #ffc53d;
+  --color-warm-muted: color-mix(in srgb, var(--color-warm) 14%, transparent);
+
+  /* ========== Surfaces (brightness rises with elevation) ========== */
+  /* base < surface < elevated < overlay */
+  --bg-void: #000000;
+  --bg-base: #07080a;
+  --bg-surface: #0e1014;
+  --bg-elevated: #14171c;
+  --bg-overlay: #1b1f26;
+  --bg-hover: #22262e;
+  --bg-sunken: #050607;
+
+  --bg-tint-cyan: color-mix(in srgb, var(--brand-cyan) 6%, var(--bg-surface));
+  --bg-tint-magenta: color-mix(in srgb, var(--brand-magenta) 6%, var(--bg-surface));
+  --bg-tint-gold: color-mix(in srgb, var(--brand-gold) 5%, var(--bg-surface));
+
+  /* ========== Text (WCAG AA on surface) ========== */
+  --text-primary: #f4f6f8;
+  --text-secondary: #a8b0bc;
+  --text-tertiary: #8e9aa8; /* AA on #0E1014 — was #6B7380 (~3.8:1) */
+  --text-disabled: #454b55;
+  --text-inverse: #0a0b0d;
+  --text-on-primary: #041510;
+  --text-link: var(--color-primary);
+  --text-link-hover: var(--color-primary-hover);
+  /* Fallback when gradient text clip fails */
+  --text-brand-fallback: #f4f6f8;
+
+  /* ========== Borders ========== */
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-default: rgba(255, 255, 255, 0.1);
+  --border-strong: rgba(255, 255, 255, 0.18);
+  --border-focus: var(--color-primary);
+
+  /* ========== Semantic (Warning ≠ Warm) ========== */
+  --color-success: #5dffc3;
+  --color-success-bg: color-mix(in srgb, var(--color-success) 12%, transparent);
+  --color-warning: #f5a623; /* caution — distinct from Warm gold */
+  --color-warning-bg: color-mix(in srgb, var(--color-warning) 12%, transparent);
+  --color-error: #ff4d6d;
+  --color-error-bg: color-mix(in srgb, var(--color-error) 12%, transparent);
+  --color-info: #2ee6ff;
+  --color-info-bg: color-mix(in srgb, var(--color-info) 12%, transparent);
+
+  /* ========== Type scale (1.25 major-second stack) ========== */
+  --text-micro: 0.75rem; /* 12 — badge / time */
+  --text-small: 0.875rem; /* 14 — caption / label */
+  --text-body: 1rem; /* 16 — body */
+  --text-h3: 1.25rem; /* 20 — subsection */
+  --text-h2: 1.5rem; /* 24 — section */
+  --text-h1: 2rem; /* 32 — page title */
+  --text-hero: clamp(2.5rem, 6vw, 4.5rem); /* brand moment only */
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-brand: 500; /* brand titles: ≥500 so neon gradient stays crisp */
+
+  /* Aliases (legacy utility names) */
+  --text-xs: var(--text-micro);
+  --text-sm: var(--text-small);
+  --text-md: var(--text-body);
+  --text-lg: var(--text-h3);
+  --text-xl: var(--text-h3);
+  --text-2xl: var(--text-h2);
+  --text-3xl: 1.875rem;
+  --text-4xl: var(--text-h1);
+  --text-5xl: 3rem;
+
+  /* ========== Typography families ========== */
+  --font-brand: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
+  --font-display: "Noto Serif SC", "Source Han Serif SC", Georgia, serif;
+  --font-body: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", ui-monospace, monospace;
+
+  --leading-tight: 1.2;
+  --leading-snug: 1.35;
+  --leading-normal: 1.6;
+  --leading-relaxed: 1.75;
+
+  --tracking-tight: -0.02em;
+  --tracking-brand: 0.08em;
+
+  /* ========== Spacing (4px base) ========== */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  /* ========== Radius ========== */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+  --radius-control: var(--radius-md);
+  --radius-panel: var(--radius-lg);
+  --radius-logo-chip: 6px;
+
+  /* ========== Elevation / Glow (layered depth · premium) ========== */
+  --shadow-sm:
+    0 1px 0 rgba(255, 255, 255, 0.04) inset,
+    0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-md:
+    0 1px 0 rgba(255, 255, 255, 0.05) inset,
+    0 8px 24px rgba(0, 0, 0, 0.42),
+    0 2px 6px rgba(0, 0, 0, 0.28);
+  --shadow-lg:
+    0 1px 0 rgba(255, 255, 255, 0.06) inset,
+    0 24px 64px rgba(0, 0, 0, 0.55),
+    0 8px 20px rgba(0, 0, 0, 0.35);
+  --shadow-xl:
+    0 1px 0 rgba(255, 255, 255, 0.07) inset,
+    0 40px 100px rgba(0, 0, 0, 0.65),
+    0 12px 28px rgba(0, 0, 0, 0.4);
+  --shadow-float:
+    0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 20px 50px rgba(0, 0, 0, 0.5),
+    0 0 40px color-mix(in srgb, var(--color-primary) 8%, transparent);
+
+  --glow-primary:
+    0 0 0 1px color-mix(in srgb, var(--color-primary) 35%, transparent),
+    0 0 28px color-mix(in srgb, var(--color-primary) 28%, transparent);
+  --glow-accent:
+    0 0 0 1px color-mix(in srgb, var(--color-accent) 30%, transparent),
+    0 0 28px color-mix(in srgb, var(--color-accent) 22%, transparent);
+  --glow-brand:
+    0 0 0 1px color-mix(in srgb, var(--brand-cyan) 25%, transparent),
+    0 0 48px color-mix(in srgb, var(--brand-cyan) 18%, transparent),
+    0 0 80px color-mix(in srgb, var(--brand-magenta) 10%, transparent);
+
+  /* Specular / material */
+  --highlight-edge: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0) 40%);
+  --glass-bg: color-mix(in srgb, var(--bg-elevated) 72%, transparent);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --metal-sheen: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0) 42%,
+    rgba(61, 232, 200, 0.06) 100%
+  );
+
+  /* ========== Motion ========== */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-fast: 120ms;
+  --duration-normal: 220ms;
+  --duration-slow: 400ms;
+
+  /* ========== Layout ========== */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1200px;
+  --nav-height: 64px;
+  --sidebar-width: 260px;
+
+  /* ========== Z-index ========== */
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+}
+
+/* Light theme — mint paper; elevation brightens upward */
+[data-theme="light"] {
+  --bg-void: #e8efec;
+  --bg-base: #eef3f1;
+  --bg-surface: #f3f7f5;
+  --bg-elevated: #f8fbf9;
+  --bg-overlay: #ffffff;
+  --bg-hover: #e7eeeb;
+  --bg-sunken: #e4ebe8;
+
+  --bg-tint-cyan: color-mix(in srgb, #2aa89a 8%, var(--bg-surface));
+  --bg-tint-magenta: color-mix(in srgb, #c43a7a 6%, var(--bg-surface));
+  --bg-tint-gold: color-mix(in srgb, #c9a227 6%, var(--bg-surface));
+
+  --text-primary: #1c2623;
+  --text-secondary: #4f5f59;
+  --text-tertiary: #5a6b63; /* AA on #F3F7F5 — was #73827B (~3.2:1) */
+  --text-disabled: #9aaaa3;
+  --text-inverse: #f3f7f5;
+  --text-on-primary: #f3f7f5;
+  --text-brand-fallback: #1c2623;
+
+  --border-subtle: rgba(28, 38, 35, 0.06);
+  --border-default: rgba(28, 38, 35, 0.1);
+  --border-strong: rgba(28, 38, 35, 0.16);
+
+  --color-primary: #2a9b8a;
+  --color-primary-hover: #238578;
+  --color-primary-pressed: #1c6f64;
+  --color-primary-muted: color-mix(in srgb, var(--color-primary) 12%, transparent);
+  --color-primary-border: color-mix(in srgb, var(--color-primary) 32%, transparent);
+
+  --color-accent: #c43a7a;
+  --color-accent-hover: #a83068;
+  --color-accent-muted: color-mix(in srgb, var(--color-accent) 10%, transparent);
+
+  --color-warm: #c9a227;
+  --color-warm-muted: color-mix(in srgb, var(--color-warm) 12%, transparent);
+
+  --color-success: #2a9b8a;
+  --color-success-bg: color-mix(in srgb, var(--color-success) 10%, transparent);
+  --color-warning: #c47d12; /* orange caution on paper; distinct from Warm */
+  --color-warning-bg: color-mix(in srgb, var(--color-warning) 10%, transparent);
+  --color-error: #d6455d;
+  --color-error-bg: color-mix(in srgb, var(--color-error) 10%, transparent);
+  --color-info: #1a9bb8;
+  --color-info-bg: color-mix(in srgb, var(--color-info) 10%, transparent);
+
+  --border-focus: var(--color-primary);
+
+  --brand-magenta: #d64d8f;
+  --brand-orchid: #9b6bc9;
+  --brand-cyan: #2bb8c9;
+  --brand-mint: #3cb89a;
+  --brand-lime: #8fb83a;
+  --brand-gold: #c9a227;
+
+  --brand-gradient: linear-gradient(
+    90deg,
+    var(--brand-magenta) 0%,
+    var(--brand-orchid) 20%,
+    var(--brand-cyan) 40%,
+    var(--brand-mint) 60%,
+    var(--brand-lime) 80%,
+    var(--brand-gold) 100%
+  );
+
+  --shadow-sm:
+    0 1px 0 rgba(255, 255, 255, 0.8) inset,
+    0 1px 2px rgba(28, 38, 35, 0.05);
+  --shadow-md:
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 10px 28px rgba(28, 38, 35, 0.08),
+    0 2px 8px rgba(28, 38, 35, 0.04);
+  --shadow-lg:
+    0 1px 0 #fff inset,
+    0 24px 56px rgba(28, 38, 35, 0.1),
+    0 8px 20px rgba(28, 38, 35, 0.05);
+  --shadow-xl:
+    0 1px 0 #fff inset,
+    0 36px 80px rgba(28, 38, 35, 0.12);
+  --shadow-float:
+    0 0 0 1px rgba(28, 38, 35, 0.06),
+    0 18px 40px rgba(28, 38, 35, 0.1);
+
+  --glow-primary: 0 0 0 3px var(--color-primary-muted);
+  --glow-accent: none;
+  --glow-brand: none;
+
+  --highlight-edge: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0) 45%);
+  --glass-bg: color-mix(in srgb, var(--bg-elevated) 78%, transparent);
+  --glass-border: rgba(28, 38, 35, 0.1);
+  --metal-sheen: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.7) 0%,
+    rgba(255, 255, 255, 0) 45%,
+    rgba(42, 155, 138, 0.06) 100%
+  );
+}

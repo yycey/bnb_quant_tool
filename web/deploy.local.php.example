@@ -1,0 +1,12 @@
+<?php
+/**
+ * 宝塔部署路径覆盖（可选）
+ * 复制为 deploy.local.php 并修改 project_root
+ *
+ * return [
+ *     'project_root' => 'D:/wwwroot/a.dso.cc',
+ * ];
+ */
+return [
+    'project_root' => 'D:/bb',
+];
